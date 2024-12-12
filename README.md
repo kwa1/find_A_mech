@@ -1,4 +1,4 @@
-4. How to Connect to the Backend API
+1. How to Connect to the Backend API
 In the JavaScript code above, the <API_GATEWAY_ENDPOINT> is a placeholder for your actual API Gateway endpoint. You'll replace it with the endpoint where your Lambda function is hosted, which will interact with DynamoDB and return the list of nearby mechanics.
 
 For example:
@@ -21,4 +21,4 @@ This simple frontend will allow users to interact with your "Find Nearest Mechan
 
 You can name the application "Mechanic Finder" or any of the suggestions above, depending on the branding you'd like to go for. This basic frontend setup is also scalable and can be extended with more advanced features as needed.
 
-Let me know if you need further assistance or modifications!
+
