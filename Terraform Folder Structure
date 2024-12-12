@@ -1,0 +1,10 @@
+/terraform
+  - main.tf
+  - variables.tf
+  - outputs.tf
+  - modules/
+      - lambda/
+      - dynamodb/
+      - location-service/
+      - api-gateway/
+      - cognito/
