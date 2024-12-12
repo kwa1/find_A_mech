@@ -1,0 +1,33 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+header {
+  background-color: #007acc;
+  color: white;
+  padding: 20px 0;
+}
+
+.location-input {
+  margin: 20px auto;
+  max-width: 400px;
+}
+
+.location-input form div {
+  margin: 10px 0;
+}
+
+.mechanic-list {
+  margin: 20px auto;
+  max-width: 600px;
+}
+
+.mechanic-card {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 5px;
+}
