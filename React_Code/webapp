@@ -1,0 +1,8 @@
+src/
+├── components/
+│   ├── MechanicList.js
+│   ├── LocationInput.js
+│   └── Header.js
+├── App.js
+├── index.js
+└── styles.css
