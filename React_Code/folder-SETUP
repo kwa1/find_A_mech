@@ -1,0 +1,27 @@
+
+src/
+├── components/
+│   ├── MechanicList.js
+│   ├── LocationInput.js
+│   └── Header.js
+├── App.js
+├── index.js
+└── styles.css
+
+Integration with the Backend
+API Gateway Endpoint:
+
+Replace the apiEndpoint placeholder in App.js with your actual API Gateway URL.
+Build and Deploy:
+
+Build the React app using:
+bash
+Copy code
+npm run build
+Sync the build/ directory with the S3 bucket using the AWS CLI:
+bash
+Copy code
+aws s3 sync build/ s3://mechanic-finder-frontend
+Access Through CloudFront:
+
+CloudFront will distribute the React app globally and make it accessible via your custom domain (www.ghfindmac.com).
