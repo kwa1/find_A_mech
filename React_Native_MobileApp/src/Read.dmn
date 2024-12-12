@@ -1,0 +1,34 @@
+
+src/
+├── components/
+│   ├── MechanicList.js
+│   ├── LocationInput.js
+│   └── Header.js
+├── App.js
+├── index.js
+└── styles.css
+
+Running the App
+Set Up React Native:
+
+Install React Native CLI or Expo CLI for easier setup.
+Initialize a new project:
+bash
+Copy code
+npx expo init MechanicFinderApp
+cd MechanicFinderApp
+Install Dependencies:
+
+bash
+Copy code
+npm install expo-location
+Run the App:
+
+For Android:
+bash
+Copy code
+npx expo start --android
+For iOS:
+bash
+Copy code
+npx expo start --ios
