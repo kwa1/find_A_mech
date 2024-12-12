@@ -29,3 +29,23 @@ module "s3_frontend" {
   source      = "./modules/s3"
   bucket_name = "mechanic-finder-frontend"
 }
+#module "s3_frontend" {
+#  source      = "./modules/s3"
+#  bucket_name = "mechanic-finder-frontend"
+#}
+#module "cloudfront" {
+ # source              = "./modules/cloudfront"
+ # bucket_name         = module.s3_frontend.bucket_name
+ # bucket_domain_name  = module.s3_frontend.bucket_name
+#  acm_certificate_arn = "arn:aws:acm:us-east-1:123456789012:certificate/abcde-12345-67890-abcdef" # Replace with your ACM certificate ARN
+ # domain_name         = "www.ghfindmac.com"
+ # tags                = { Environment = "Production", Application = "MechanicFinder" }
+#}
+
+#module "route53" {
+#  source                 = "./modules/route53"
+ # root_domain            = "ghfindmac.com"
+#  subdomain              = "www"
+ # cloudfront_domain_name = module.cloudfront.cloudfront_domain_name
+ # cloudfront_zone_id     = "Z2FDTNDATAQYW2" # CloudFront's hosted zone ID
+#}
