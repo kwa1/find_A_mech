@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find a Mechanic</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Find the Nearest Mechanic</h1>
+    <button id="find-mechanic">Find Mechanics</button>
+    <ul id="mechanic-list"></ul>
+
+    <script>
+        document.getElementById('find-mechanic').addEventListener('click', async () => {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(async (position) => {
+                    const { latitude, longitude } = position.coords;
+                    const response = await fetch('<API_ENDPOINT>', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ latitude, longitude })
+                    });
+                    const { mechanics } = await response.json();
+                    const list = document.getElementById('mechanic-list');
+                    list.innerHTML = mechanics.map(mechanic => 
+                        `<li>${mechanic.name} - <a href="tel:${mechanic.phone}">${mechanic.phone}</a></li>`
+                    ).join('');
+                });
+            } else {
+                alert("Geolocation is not supported by this browser.");
+            }
+        });
+    </script>
+</body>
+</html>
