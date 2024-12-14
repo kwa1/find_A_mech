@@ -1,0 +1,110 @@
+pipeline {
+    agent any
+
+    environment {
+        AWS_ACCESS_KEY_ID = credentials('AWS_ACCESS_KEY_ID')
+        AWS_SECRET_ACCESS_KEY = credentials('AWS_SECRET_ACCESS_KEY')
+        AWS_REGION = 'us-east-1'
+    }
+
+    stages {
+        stage('Checkout Code') {
+            steps {
+                script {
+                    // Checkout the repository code from GitHub
+                    checkout scm
+                }
+            }
+        }
+
+        stage('Install Dependencies') {
+            steps {
+                script {
+                    // Install dependencies for Web app
+                    dir('web') {
+                        sh 'npm install'
+                    }
+                    // Install dependencies for Mobile app (React Native)
+                    dir('app') {
+                        sh 'npm install'
+                    }
+                }
+            }
+        }
+
+        stage('Build Web App') {
+            steps {
+                script {
+                    // Build the React web app
+                    dir('web') {
+                        sh 'npm run build'
+                    }
+                }
+            }
+        }
+
+        stage('Build Mobile App') {
+            steps {
+                script {
+                    // Build the React Native mobile app
+                    dir('app') {
+                        sh 'npm run build'
+                    }
+                }
+            }
+        }
+
+        stage('Deploy Web App to S3') {
+            steps {
+                script {
+                    // Sync the build folder to S3
+                    sh '''
+                        aws s3 sync web/build/ s3://mechanic-finder-frontend --delete
+                    '''
+                }
+            }
+        }
+
+        stage('Invalidate CloudFront Cache') {
+            steps {
+                script {
+                    // Invalidate CloudFront cache after web app deployment
+                    sh '''
+                        aws cloudfront create-invalidation --distribution-id YOUR_CLOUDFRONT_DIST_ID --paths "/*"
+                    '''
+                }
+            }
+        }
+
+        stage('Terraform Plan & Apply') {
+            steps {
+                script {
+                    // Initialize and apply Terraform to provision infrastructure
+                    dir('terraform') {
+                        sh 'terraform init'
+                        sh 'terraform plan -out=tfplan'
+                        sh 'terraform apply -auto-approve tfplan'
+                    }
+                }
+            }
+        }
+
+        stage('Cleanup') {
+            steps {
+                script {
+                    // Cleanup temporary build files
+                    cleanWs()
+                }
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'Pipeline completed successfully!'
+        }
+        failure {
+            echo 'Pipeline failed!'
+        }
+    }
+}
